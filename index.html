@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FLOAT — Ethereal Digital Experience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="nav-brand"><a href="/" class="router-link">FLOAT</a></div>
+    
+    <div class="nav-links">
+      <a href="/collections" class="router-link">COLLECTIONS</a>
+      <a href="/arrivals" class="router-link">NEW ARRIVALS</a>
+      <a href="/archive" class="router-link">ARCHIVE</a>
+      <a href="/about" class="router-link">ABOUT</a>
+    </div>
+
+    <div class="nav-actions">
+      <button id="btn-search" class="icon-btn">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button id="btn-cart" class="icon-btn">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        <span id="cart-badge" class="hidden">0</span>
+      </button>
+      <button id="btn-user" class="icon-btn">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      </button>
+      <button id="btn-menu-mobile" class="icon-btn mobile-only">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN VIEWS CONTAINER -->
+  <main id="app-container">
+    
+    <!-- 1. HOME -->
+    <section id="view-home" class="view active">
+      <div class="hero-canvas">
+        <canvas id="three-canvas"></canvas>
+      </div>
+      <div class="hero-content">
+        <h1 class="display-title">FLOAT</h1>
+        <p class="hero-subtitle">Ethereal Digital Experience</p>
+        <a href="/collections" class="btn-primary router-link">EXPLORE COLLECTION</a>
+      </div>
+    </section>
+
+    <!-- 2. COLLECTIONS -->
+    <section id="view-collections" class="view hidden">
+      <div class="page-container">
+        <h1 class="page-title">Collections</h1>
+        <div class="filters-row">
+          <select id="filter-category" class="filter-select">
+            <option value="all">All</option>
+            <option value="outerwear">Outerwear</option>
+            <option value="tops">Tops</option>
+            <option value="bottoms">Bottoms</option>
+            <option value="accessories">Accessories</option>
+            <option value="footwear">Footwear</option>
+          </select>
+          <div class="filter-sizes">
+            <button class="pill" data-size="XS">XS</button>
+            <button class="pill" data-size="S">S</button>
+            <button class="pill" data-size="M">M</button>
+            <button class="pill" data-size="L">L</button>
+            <button class="pill" data-size="XL">XL</button>
+          </div>
+          <div class="filter-slider">
+            <label>Price: $<span id="price-val">1000</span></label>
+            <input type="range" id="filter-price" min="0" max="1000" value="1000">
+          </div>
+          <select id="filter-sort" class="filter-select">
+            <option value="newest">Newest</option>
+            <option value="price-asc">Price: Low-High</option>
+            <option value="price-desc">Price: High-Low</option>
+          </select>
+          <button id="tone-toggle" class="tone-toggle"><span class="dot"></span><span class="dot"></span></button>
+        </div>
+        <div id="product-grid" class="product-grid">
+          <!-- Injected by JS -->
+        </div>
+        <div class="load-more-container"><button id="btn-load-more" class="btn-secondary">Load More</button></div>
+      </div>
+    </section>
+
+    <!-- 2b. ARRIVALS -->
+    <section id="view-arrivals" class="view hidden">
+        <div class="archive-hero" style="height: 60vh;">
+            <img id="arrivals-parallax-img" class="parallax-img" src="https://images.unsplash.com/photo-1544022613-e87ca75a784a?q=80&w=1600" alt="New Arrivals">
+            <div class="archive-text" style="background: rgba(0,0,0,0.4); padding: 40px; border-radius: 8px; backdrop-filter: blur(5px); text-align:center;">
+                <h1 class="page-title" style="margin-bottom:10px;">NEW ARRIVALS</h1>
+                <p>The latest iterations of our core philosophy.</p>
+            </div>
+        </div>
+        <div class="page-container" style="padding-top: 60px;">
+            <div id="arrivals-grid" class="product-grid"></div>
+        </div>
+    </section>
+
+    <!-- 2c. ABOUT -->
+    <section id="view-about" class="view hidden" style="position: relative;">
+        <!-- Sticky 3D Canvas Background -->
+        <div style="position: sticky; top: 0; left: 0; width: 100%; height: 100vh; z-index: 0;">
+            <canvas id="about-canvas"></canvas>
+        </div>
+        
+        <!-- Scrolling Content Over the Canvas -->
+        <div style="position: relative; z-index: 10; margin-top: -100vh;">
+            <div class="page-container" style="min-height: 100vh; display: flex; align-items: center;">
+                <div style="background: rgba(10,10,10,0.8); padding: 50px; border-radius: 8px; max-width: 600px; backdrop-filter: blur(10px);">
+                    <h1 class="page-title" style="margin-bottom:20px;">The Digital Fabric</h1>
+                    <p style="font-size: 16px; line-height: 1.8; color: var(--text-secondary);">FLOAT operates at the intersection of parametric architecture and high-performance outerwear. We construct our garments meticulously through mathematical principles, establishing volume through negative space.</p>
+                </div>
+            </div>
+            <div class="page-container" style="min-height: 100vh; display: flex; align-items: center; justify-content: flex-end;">
+                <div style="background: rgba(10,10,10,0.8); padding: 50px; border-radius: 8px; max-width: 600px; backdrop-filter: blur(10px);">
+                    <h1 class="page-title" style="margin-bottom:20px;">Enduring Utility</h1>
+                    <p style="font-size: 16px; line-height: 1.8; color: var(--text-secondary);">Form follows absolute function. Every membrane, every seam is engineered to endure. Our pieces are crafted to interact seamlessly with human anatomy, transcending superficial trends for a timeless aesthetic structure.</p>
+                </div>
+            </div>
+            <div class="page-container" style="min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                <h1 class="display-title" style="margin-bottom:40px;">Join the Archive</h1>
+                <a href="/collections" class="btn-primary router-link">EXPLORE COLLECTION</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. PRODUCT DETAIL -->
+    <section id="view-product" class="view hidden">
+      <div class="page-container split-layout">
+        <div class="product-image-container">
+          <img id="pd-image" src="" alt="Product">
+        </div>
+        <div class="product-info-container">
+          <h1 id="pd-name">--</h1>
+          <p id="pd-price" class="price">$--</p>
+          
+          <div class="pd-section">
+            <label>Color</label>
+            <div id="pd-colors" class="swatch-group"></div>
+          </div>
+          
+          <div class="pd-section">
+            <label>Size</label>
+            <div id="pd-sizes" class="pill-group"></div>
+          </div>
+
+          <div class="pd-section qty-row">
+            <label>Quantity</label>
+            <div class="qty-selector">
+              <button id="pd-qty-sub">-</button>
+              <span id="pd-qty-val">1</span>
+              <button id="pd-qty-add">+</button>
+            </div>
+          </div>
+
+          <div class="pd-actions">
+            <button id="btn-pd-add" class="btn-primary full-width">ADD TO CART</button>
+            <button id="btn-pd-wishlist" class="btn-secondary full-width">SAVE TO WISHLIST</button>
+          </div>
+
+          <div class="pd-accordions">
+            <details class="accordion"><summary>Description</summary><p id="pd-desc">--</p></details>
+            <details class="accordion"><summary>Materials</summary><p id="pd-material">--</p></details>
+            <details class="accordion"><summary>Care</summary><p>Dry clean only. Do not tumble dry.</p></details>
+          </div>
+        </div>
+      </div>
+      <div class="page-container" style="margin-top: 100px;">
+        <h3 class="section-heading">YOU MAY ALSO LIKE</h3>
+        <div id="pd-related-grid" class="product-grid"></div>
+      </div>
+    </section>
+
+    <!-- 4. CART -->
+    <section id="view-cart" class="view hidden">
+      <div class="page-container">
+        <h1 class="page-title">Bag</h1>
+        <!-- Content injected by JS -->
+        <div class="cart-layout">
+          <div id="cart-page-list" class="cart-items-list"></div>
+          <div class="cart-summary-panel">
+            <h3>Summary</h3>
+            <div class="summary-row"><span>Subtotal</span><span id="cp-subtotal">$--</span></div>
+            <div class="summary-row"><span>Shipping</span><span>FREE</span></div>
+            <div class="summary-row"><span>Estimated Tax</span><span id="cp-tax">$--</span></div>
+            <hr>
+            <div class="summary-row total"><span>Total</span><span id="cp-total">$--</span></div>
+            <button id="btn-cp-checkout" class="btn-primary full-width" style="margin-top:20px;">CHECKOUT NOW</button>
+            <button class="btn-apple-pay full-width toast-trigger" style="margin-top:10px;">PAY WITH APPLE PAY</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. CHECKOUT -->
+    <section id="view-checkout" class="view hidden">
+      <div class="page-container split-layout checkout-layout">
+        <div class="checkout-forms">
+          
+          <div class="checkout-step">
+            <div class="step-header"><h2>Contact Info</h2><span>STEP 01/03</span></div>
+            <input type="email" id="ck-email" class="line-input" placeholder="Email Address">
+          </div>
+
+          <div class="checkout-step">
+            <div class="step-header"><h2>Shipping</h2><span>STEP 02/03</span></div>
+            <div class="form-row"><input type="text" id="ck-fn" class="line-input" placeholder="First Name"><input type="text" id="ck-ln" class="line-input" placeholder="Last Name"></div>
+            <input type="text" id="ck-street" class="line-input" placeholder="Street Address">
+            <div class="form-row"><input type="text" id="ck-city" class="line-input" placeholder="City"><input type="text" id="ck-zip" class="line-input" placeholder="Postal Code"></div>
+          </div>
+
+          <div class="checkout-step">
+            <div class="step-header"><h2>Payment</h2><span>STEP 03/03</span></div>
+            <div class="form-row"><input type="text" id="ck-card" class="line-input" placeholder="Card Number (#### #### #### ####)"><span class="label-secure">ENCRYPTED & SECURE</span></div>
+            <div class="form-row"><input type="text" id="ck-exp" class="line-input" placeholder="MM/YY"><input type="password" id="ck-cvc" class="line-input" placeholder="CVC"></div>
+            <p id="ck-error" class="error-msg hidden"></p>
+            <button id="btn-ck-pay" class="btn-primary full-width" style="margin-top:30px;">COMPLETE PURCHASE</button>
+          </div>
+
+        </div>
+        <div class="checkout-summary">
+          <h3>Order Summary</h3>
+          <div id="ck-summary-list"></div>
+          <hr>
+          <div class="summary-row total"><span>Total</span><span id="ck-total">$--</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. ORDER CONFIRMATION -->
+    <section id="view-confirmation" class="view hidden">
+        <div class="success-container">
+            <svg class="checkmark-anim" viewBox="0 0 52 52">
+                <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
+                <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+            </svg>
+            <h2>ORDER CONFIRMED</h2>
+            <p id="order-num">#FLT-000000</p>
+            <p class="subtitle">Estimated delivery: 3–5 business days</p>
+            <a href="/collections" class="btn-secondary router-link" style="margin-top:30px;">CONTINUE SHOPPING</a>
+        </div>
+    </section>
+
+    <!-- 7. AUTH (LOGIN / SIGNUP) -->
+    <section id="view-auth" class="view hidden">
+      <div class="auth-bg">FLOAT</div>
+      <div class="auth-card">
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-tab="login">LOGIN</button>
+          <button class="auth-tab" data-tab="signup">SIGN UP</button>
+        </div>
+        <div id="auth-form-container">
+            <input type="email" id="auth-email" class="line-input" placeholder="Email">
+            <div style="position:relative;">
+                <input type="password" id="auth-password" class="line-input" placeholder="Password">
+                <button id="auth-toggle-pwd" class="icon-btn eye-btn"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+            </div>
+            <button id="btn-auth-submit" class="btn-primary full-width" style="margin-top:20px;">SIGN IN</button>
+            
+            <div class="divider">OR CONTINUE WITH</div>
+            <div class="social-row">
+                <button class="btn-social toast-trigger">Google</button>
+                <button class="btn-social toast-trigger">Github</button>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. ARCHIVE -->
+    <section id="view-archive" class="view hidden">
+        <div class="archive-hero">
+            <img src="https://images.unsplash.com/photo-1549439602-43ebca2327af?w=1600" alt="Archive">
+            <div class="archive-text">
+                <h1>Ethereal Structures — SS/26 Collection</h1>
+                <div style="margin-top:20px; display:flex; gap:16px; justify-content:center;">
+                    <a href="/collections" class="btn-primary router-link">SHOP ARCHIVE</a>
+                    <button class="btn-secondary toast-trigger">VIEW FILM</button>
+                </div>
+            </div>
+        </div>
+        <div class="page-container">
+            <div class="curated-grid">
+               <!-- 3 asymmetric masonry cards -->
+               <img src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe8b?w=800" class="masonry-large">
+               <div>
+                 <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400" class="masonry-small">
+                 <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400" class="masonry-small">
+               </div>
+            </div>
+        </div>
+        <div class="philosophy-panel text-center">
+            <h2 class="display-title" style="font-size:2.5rem;">"The philosophy of negative space in garment construction."</h2>
+            <p>We believe that what is left out is just as important as what is included. Our pieces are defined by the air between the fabric and the body.</p>
+            <button class="toast-trigger underline-link" style="margin-top:30px;">READ THE MANIFESTO</button>
+        </div>
+    </section>
+
+  </main>
+
+  <!-- OVERLAYS -->
+  <div id="cart-sidebar" class="sidebar">
+      <div class="sidebar-header">
+          <h3>Your Bag</h3>
+          <button id="btn-close-cart" class="icon-btn"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+      </div>
+      <div id="sidebar-items" class="sidebar-items"></div>
+      <div class="sidebar-footer">
+          <div class="summary-row"><span>Subtotal</span><span id="sb-subtotal">$--</span></div>
+          <a href="/cart" class="btn-secondary full-width router-link" style="margin-top:16px;">VIEW CART</a>
+          <a href="/checkout" class="btn-primary full-width router-link" style="margin-top:10px;">CHECKOUT NOW</a>
+      </div>
+  </div>
+
+  <div id="search-overlay" class="overlay hidden">
+      <button id="btn-close-search" class="icon-btn" style="position:absolute; top:30px; right:30px;"><svg viewBox="0 0 24 24" width="32" height="32" stroke="white" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+      <input type="text" id="search-input" class="search-large" placeholder="Search...">
+      <div id="search-results" class="search-grid"></div>
+  </div>
+  
+  <div id="toast-container"></div>
+
+  <!-- FOOTER -->
+  <footer>
+      <div class="footer-grid">
+          <div>
+              <h3>FLOAT</h3>
+              <p>Ethereal Digital Experience<br>© 2024 FLOAT. All rights reserved.</p>
+          </div>
+          <div>
+              <h4>SHOP</h4>
+              <a href="/collections" class="router-link">Collections</a>
+              <a href="/collections?filter=new" class="router-link">New Arrivals</a>
+              <a href="/archive" class="router-link">Archive</a>
+          </div>
+          <div>
+              <h4>COMPANY</h4>
+              <a href="#">About</a>
+              <a href="#">Sustainability</a>
+              <a href="#">Careers</a>
+          </div>
+          <div>
+              <h4>SUPPORT</h4>
+              <a href="#">FAQ</a>
+              <a href="#">Shipping</a>
+              <a href="#">Returns</a>
+          </div>
+      </div>
+      <div class="footer-bottom">
+          <span>PRIVACY | TERMS | SUSTAINABILITY | INSTAGRAM</span>
+      </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

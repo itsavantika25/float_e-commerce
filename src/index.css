@@ -1,0 +1,117 @@
+:root {
+  --font-primary: 'Outfit', -apple-system, sans-serif;
+  
+  /* Monochromatic Minimalist Palette */
+  --bg-main: #0a0a0a;
+  --bg-darker: #050505;
+  --bg-surface: #121212;
+  --bg-surface-light: #1c1c1c;
+  
+  --text-main: #ffffff;
+  --text-muted: #888888;
+  --text-dark: #333333;
+  
+  --accent-primary: #ffffff;
+  --accent-secondary: #aaaaaa;
+  
+  --glass-bg: rgba(18, 18, 18, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08); /* Extremely subtle line */
+  --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  --form-line: rgba(255, 255, 255, 0.15);
+  
+  /* Transitions */
+  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-medium: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-family: var(--font-primary);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  letter-spacing: 0.5px;
+}
+
+/* Custom Minimal Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-surface-light);
+  border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Base Form Inputs reset to horizontal underlines */
+input.line-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--form-line);
+  color: var(--text-main);
+  padding: 12px 0;
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  outline: none;
+  transition: var(--transition-fast);
+  border-radius: 0;
+  width: 100%;
+}
+
+input.line-input::placeholder {
+  color: var(--text-dark);
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+}
+
+input.line-input:focus {
+  border-bottom-color: var(--text-main);
+}
+
+/* Button Resets */
+button {
+  font-family: var(--font-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  color: var(--text-main);
+}
+
+.primary-btn {
+  background: linear-gradient(180deg, #bbbbbb 0%, #666666 100%);
+  color: #000;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.8rem;
+  padding: 18px 32px;
+  border-radius: 6px;
+  transition: var(--transition-medium);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.primary-btn:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #888888 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
